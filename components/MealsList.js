@@ -3,7 +3,7 @@ import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import MealItem from './MealItem'
 
-const MealsList = ({ listData }) => {
+const MealsList = ({ listData, navigation }) => {
   const renderMealItem = (itemData) => (
     <MealItem
       title={itemData.item.title}
@@ -11,7 +11,12 @@ const MealsList = ({ listData }) => {
       duration={itemData.item.duration}
       complexity={itemData.item.complexity}
       affordability={itemData.item.affordability}
-      onSelectMeal={() => {}}
+      onSelectMeal={() => {
+        navigation.navigate('MealDetail', {
+          mealId: itemData.item.id,
+          mealTitle: itemData.item.title,
+        })
+      }}
     />
   )
 
@@ -24,6 +29,7 @@ const MealsList = ({ listData }) => {
 
 MealsList.propTypes = {
   listData: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
 }
 
 export default MealsList

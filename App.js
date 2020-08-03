@@ -3,11 +3,12 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import React, { useState } from 'react'
-import Colors from './constants/Colors.js'
-import CategoriesContext from './context/CategoriesContext.js'
+import Colors from './constants/Colors'
+import CategoriesContext from './context/CategoriesContext'
 import { CATEGORIES, MEALS } from './data/dummy-data'
 import CategoriesScreen from './src/screens/CategoriesScreen/index'
 import CategoryMealsScreen from './src/screens/CategoryMealsScreen/CategoryMealsScreen'
+import MealDetailScreen from './src/screens/MealDetailScreen/MealDetailScreen'
 
 const fetchFonts = () =>
   // eslint-disable-next-line
@@ -62,6 +63,16 @@ const App = () => {
               return {
                 headerTitle: selectedCategory.title,
                 headerTitleStyle: { alignSelf: 'flex-start' },
+              }
+            }}
+          />
+          <Stack.Screen
+            name="MealDetail"
+            component={MealDetailScreen}
+            options={({ route }) => {
+              const { mealTitle } = route.params
+              return {
+                headerTitle: mealTitle,
               }
             }}
           />
