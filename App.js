@@ -5,8 +5,9 @@ import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import Colors from './constants/Colors.js'
 import CategoriesContext from './context/CategoriesContext.js'
-import { CATEGORIES } from './data/dummy-data'
+import { CATEGORIES, MEALS } from './data/dummy-data'
 import CategoriesScreen from './src/screens/CategoriesScreen/index'
+import CategoryMealsScreen from './src/screens/CategoryMealsScreen/CategoryMealsScreen'
 
 const fetchFonts = () =>
   // eslint-disable-next-line
@@ -28,7 +29,7 @@ const App = () => {
   const data = {
     categories: catMeals,
     setCat: (meals) => setCatMeals(meals),
-    // meals: MEALS,
+    meals: MEALS,
   }
 
   return (
@@ -52,6 +53,17 @@ const App = () => {
             name="Categories"
             component={CategoriesScreen}
             options={{ headerTitleStyle: { alignSelf: 'center' } }}
+          />
+          <Stack.Screen
+            name="CategoryMeals"
+            component={CategoryMealsScreen}
+            options={({ route }) => {
+              const selectedCategory = CATEGORIES.find((cat) => cat.id === route.params.categoryId)
+              return {
+                headerTitle: selectedCategory.title,
+                headerTitleStyle: { alignSelf: 'flex-start' },
+              }
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
