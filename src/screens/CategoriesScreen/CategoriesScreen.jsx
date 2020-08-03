@@ -1,15 +1,25 @@
 import React, { useContext } from 'react'
-import { Text, View } from 'react-native'
+import { FlatList } from 'react-native'
+import CategoryGridTile from '../../../components/CategoryGridTile'
 import CategorieContext from '../../../context/CategoriesContext'
-import { styles } from './CategoriesScreen.styles'
 
 const CategoriesScreen = () => {
   const value = useContext(CategorieContext) // eslint-disable-line
 
+  const renderGridItem = (itemData) => (
+    <CategoryGridTile
+      title={itemData.item.title}
+      color={itemData.item.color}
+      onSelect={() => {}}
+    />
+  )
+
   return (
-    <View style={styles.CategoriesScreenWrapper}>
-      <Text>Test content</Text>
-    </View>
+    <FlatList
+      data={value.categories}
+      renderItem={renderGridItem}
+      numColumns={2}
+    />
   )
 }
 

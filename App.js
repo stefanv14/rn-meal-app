@@ -48,7 +48,11 @@ const App = () => {
             headerTintColor: 'white',
           }}
         >
-          <Stack.Screen name="Categories" component={CategoriesScreen} />
+          <Stack.Screen
+            name="Categories"
+            component={CategoriesScreen}
+            options={{ headerTitleStyle: { alignSelf: 'center' } }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </CategoriesContext.Provider>
