@@ -1,16 +1,21 @@
+import { PropTypes } from 'prop-types'
 import React, { useContext } from 'react'
 import { FlatList } from 'react-native'
 import CategoryGridTile from '../../../components/CategoryGridTile'
 import CategorieContext from '../../../context/CategoriesContext'
 
-const CategoriesScreen = () => {
+const CategoriesScreen = ({ navigation }) => {
   const value = useContext(CategorieContext) // eslint-disable-line
 
   const renderGridItem = (itemData) => (
     <CategoryGridTile
       title={itemData.item.title}
       color={itemData.item.color}
-      onSelect={() => {}}
+      onSelect={() => {
+        navigation.navigate('CategoryMeals', {
+          categoryId: itemData.item.id,
+        })
+      }}
     />
   )
 
@@ -24,7 +29,7 @@ const CategoriesScreen = () => {
 }
 
 CategoriesScreen.propTypes = {
-  // bla: PropTypes.string,
+  navigation: PropTypes.object.isRequired,
 }
 
 CategoriesScreen.defaultProps = {
