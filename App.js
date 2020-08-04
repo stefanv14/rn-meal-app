@@ -1,14 +1,14 @@
+import { Ionicons } from '@expo/vector-icons'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import Colors from './constants/Colors'
 import CategoriesContext from './context/CategoriesContext'
 import { CATEGORIES, MEALS } from './data/dummy-data'
-import CategoriesScreen from './src/screens/CategoriesScreen/index'
-import CategoryMealsScreen from './src/screens/CategoryMealsScreen/CategoryMealsScreen'
-import MealDetailScreen from './src/screens/MealDetailScreen/MealDetailScreen'
+import FavoriteStackScreen from './navigation/FavoriteStackScreen'
+import HomeStackScreen from './navigation/HomeStackScreen'
 
 const fetchFonts = () =>
   // eslint-disable-next-line
@@ -17,7 +17,7 @@ const fetchFonts = () =>
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
   })
 
-const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 const App = () => {
   const [fontLoaded, setFontLoaded] = useState(false)
@@ -36,47 +36,29 @@ const App = () => {
   return (
     <CategoriesContext.Provider value={data}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: Colors.primaryColor,
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            // eslint-disable-next-line
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName
+
+              if (route.name === 'Meals') {
+                iconName = focused ? 'ios-restaurant' : 'ios-restaurant'
+              } else if (route.name === 'Favorites') {
+                iconName = focused ? 'ios-star' : 'ios-star'
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />
             },
-            headerTitleStyle: {
-              fontFamily: 'open-sans-bold',
-            },
-            headerBackTitleStyle: {
-              fontFamily: 'open-sans',
-            },
-            headerTintColor: 'white',
+          })}
+          tabBarOptions={{
+            activeTintColor: Colors.accentColor,
+            inactiveTintColor: Colors.primaryColor,
           }}
         >
-          <Stack.Screen
-            name="Categories"
-            component={CategoriesScreen}
-            options={{ headerTitleStyle: { alignSelf: 'center' } }}
-          />
-          <Stack.Screen
-            name="CategoryMeals"
-            component={CategoryMealsScreen}
-            options={({ route }) => {
-              const selectedCategory = CATEGORIES.find((cat) => cat.id === route.params.categoryId)
-              return {
-                headerTitle: selectedCategory.title,
-                headerTitleStyle: { alignSelf: 'flex-start' },
-              }
-            }}
-          />
-          <Stack.Screen
-            name="MealDetail"
-            component={MealDetailScreen}
-            options={({ route }) => {
-              const { mealTitle } = route.params
-              return {
-                headerTitle: mealTitle,
-              }
-            }}
-          />
-        </Stack.Navigator>
+          <Tab.Screen name="Meals" component={HomeStackScreen} />
+          <Tab.Screen name="Favorites" component={FavoriteStackScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </CategoriesContext.Provider>
   )
