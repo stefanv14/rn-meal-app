@@ -20,13 +20,9 @@
     "no-nested-ternary": "off",
     "no-plusplus": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "no-restricted-syntax": [
-      "error",
-      "ForInStatement",
-      "LabeledStatement",
-      "WithStatement"
-    ],
+    "guard-for-in": "off",
     "object-curly-newline": "off",
+    "no-restricted-syntax": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {

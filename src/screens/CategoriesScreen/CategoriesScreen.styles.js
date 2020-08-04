@@ -6,4 +6,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  spinner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })

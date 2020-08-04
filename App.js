@@ -6,7 +6,6 @@ import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import Colors from './constants/Colors'
 import CategoriesContext from './context/CategoriesContext'
-import { CATEGORIES, MEALS } from './data/dummy-data'
 import FavoriteStackScreen from './navigation/FavoriteStackScreen'
 import HomeStackScreen from './navigation/HomeStackScreen'
 
@@ -21,7 +20,8 @@ const Tab = createBottomTabNavigator()
 
 const App = () => {
   const [fontLoaded, setFontLoaded] = useState(false)
-  const [catMeals, setCatMeals] = useState(CATEGORIES)
+  const [catMeals, setCatMeals] = useState([])
+  const [allMeals, setAllMeals] = useState([])
 
   if (!fontLoaded) {
     return <AppLoading startAsync={fetchFonts} onFinish={() => setFontLoaded(true)} />
@@ -29,8 +29,9 @@ const App = () => {
 
   const data = {
     categories: catMeals,
-    setCat: (meals) => setCatMeals(meals),
-    meals: MEALS,
+    setCat: (categories) => setCatMeals(categories),
+    meals: allMeals,
+    setMeals: (meals) => setAllMeals(meals),
   }
 
   return (
