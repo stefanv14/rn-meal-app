@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
-import React, { useContext } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import React, { useCallback, useContext, useEffect } from 'react'
+import { AsyncStorage, Image, ScrollView, Text, View } from 'react-native'
 import DefaultText from '../../../components/DefaultText'
 import CategoriesContext from '../../../context/CategoriesContext'
 import { styles } from './MealDetailScreen.styles'
@@ -11,12 +11,56 @@ const ListItem = ({ children }) => (
   </View>
 )
 
-const MealDetailScreen = ({ route }) => {
+const MealDetailScreen = ({ navigation, route }) => {
   const value = useContext(CategoriesContext)
 
   const { mealId } = route.params
 
   const selectedMeal = value.meals.find((meal) => meal.id === mealId)
+
+  const isInStorage = (storage) => {
+    const itemInStorage = JSON.parse(storage).find(
+      (el) => el.id === selectedMeal.id,
+    )
+    if (itemInStorage !== undefined) {
+      return true
+    }
+    return false
+  }
+
+  const removeItemFromStorage = (storage) => {
+    const filtered = JSON.parse(storage).filter(
+      (el) => el.id !== selectedMeal.id,
+    )
+    return filtered
+  }
+
+  const toggleFavoriteHandler = useCallback(() => {
+    const storeData = async () => {
+      try {
+        const itemsInStorage = await AsyncStorage.getItem('isFav')
+        if (itemsInStorage !== null) {
+          if (isInStorage(itemsInStorage)) {
+            const newStorage = removeItemFromStorage(itemsInStorage)
+            AsyncStorage.setItem('isFav', JSON.stringify(newStorage))
+          } else {
+            const parsed = JSON.parse(itemsInStorage).concat(selectedMeal)
+            AsyncStorage.setItem('isFav', JSON.stringify(parsed))
+          }
+        } else {
+          AsyncStorage.setItem('isFav', JSON.stringify([selectedMeal]))
+        }
+      } catch (error) {
+        // Error saving data
+      }
+    }
+    storeData()
+  }, [mealId])
+
+  useEffect(() => {
+    navigation.setParams({ mealTitle: selectedMeal.title })
+    navigation.setParams({ toggleFav: toggleFavoriteHandler })
+  }, [toggleFavoriteHandler])
 
   return (
     <ScrollView>
@@ -40,6 +84,7 @@ const MealDetailScreen = ({ route }) => {
 }
 
 MealDetailScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
 }
 
