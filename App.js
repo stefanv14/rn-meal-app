@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import Colors from './constants/Colors'
 import CategoriesContext from './context/CategoriesContext'
 import FavoriteStackScreen from './navigation/FavoriteStackScreen'
+import FailterStackScreen from './navigation/FilterStackScreen'
 import HomeStackScreen from './navigation/HomeStackScreen'
 
 const fetchFonts = () =>
@@ -47,6 +48,8 @@ const App = () => {
                 iconName = focused ? 'ios-restaurant' : 'ios-restaurant'
               } else if (route.name === 'Favorites') {
                 iconName = focused ? 'ios-star' : 'ios-star'
+              } else if (route.name === 'Filters') {
+                iconName = focused ? 'ios-list' : 'ios-list'
               }
 
               return <Ionicons name={iconName} size={size} color={color} />
@@ -59,6 +62,7 @@ const App = () => {
         >
           <Tab.Screen name="Meals" component={HomeStackScreen} />
           <Tab.Screen name="Favorites" component={FavoriteStackScreen} />
+          <Tab.Screen name="Filters" component={FailterStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </CategoriesContext.Provider>
