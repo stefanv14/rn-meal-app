@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
-import { AsyncStorage, FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, AsyncStorage, FlatList, View } from 'react-native'
 import MealItem from '../../../components/MealItem'
 import CategoriesContext from '../../../context/CategoriesContext'
 import Meal from '../../../models/meal'
@@ -74,7 +74,9 @@ const FavoritesScreen = ({ navigation }) => {
   )
 
   return isLoading ? (
-    <Text>loading...</Text>
+    <View style={styles.spinner}>
+      <ActivityIndicator color="#999999" size="large" />
+    </View>
   ) : (
     <View style={styles.FavoritesScreenWrapper}>
       <View style={{ flex: 1 }}>
