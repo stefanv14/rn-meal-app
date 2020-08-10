@@ -3,10 +3,10 @@ import React from 'react'
 import Colors from '../constants/Colors'
 import FilterScreen from '../src/screens/FilterScreen'
 
-const FavStack = createStackNavigator()
+const FilterStack = createStackNavigator()
 
-const FailterStackScreen = () => (
-  <FavStack.Navigator
+const FilterStackScreen = () => (
+  <FilterStack.Navigator
     screenOptions={{
       headerStyle: {
         backgroundColor: Colors.primaryColor,
@@ -20,8 +20,8 @@ const FailterStackScreen = () => (
       headerTintColor: 'white',
     }}
   >
-    <FavStack.Screen name="Filter" component={FilterScreen} />
-  </FavStack.Navigator>
+    <FilterStack.Screen name="Filter" component={FilterScreen} />
+  </FilterStack.Navigator>
 )
 
-export default FailterStackScreen
+export default FilterStackScreen
