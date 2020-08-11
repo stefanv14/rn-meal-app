@@ -4,7 +4,7 @@ import { AsyncStorage } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../components/HeaderButton'
 import Colors from '../constants/Colors'
-import CategoriesContext from '../context/CategoriesContext'
+import AppContext from '../context/AppContext'
 import CategoriesScreen from '../src/screens/CategoriesScreen'
 import CategoryMealsScreen from '../src/screens/CategoryMealsScreen/index'
 import MealDetailScreen from '../src/screens/MealDetailScreen/MealDetailScreen'
@@ -12,7 +12,7 @@ import MealDetailScreen from '../src/screens/MealDetailScreen/MealDetailScreen'
 const Stack = createStackNavigator()
 
 const HomeStackScreen = () => {
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
   return (
     <Stack.Navigator
       screenOptions={{

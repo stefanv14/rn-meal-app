@@ -5,7 +5,7 @@ import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import Colors from './constants/Colors'
-import CategoriesContext from './context/CategoriesContext'
+import AppContext from './context/AppContext'
 import FavoriteStackScreen from './navigation/FavoriteStackScreen'
 import FailterStackScreen from './navigation/FilterStackScreen'
 import HomeStackScreen from './navigation/HomeStackScreen'
@@ -36,7 +36,7 @@ const App = () => {
   }
 
   return (
-    <CategoriesContext.Provider value={data}>
+    <AppContext.Provider value={data}>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({ route }) => ({
@@ -65,7 +65,7 @@ const App = () => {
           <Tab.Screen name="Filters" component={FailterStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
-    </CategoriesContext.Provider>
+    </AppContext.Provider>
   )
 }
 

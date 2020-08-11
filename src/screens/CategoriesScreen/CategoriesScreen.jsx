@@ -2,13 +2,13 @@ import { PropTypes } from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, View } from 'react-native'
 import CategoryGridTile from '../../../components/CategoryGridTile'
-import CategoriesContext from '../../../context/CategoriesContext'
+import AppContext from '../../../context/AppContext'
 import Category from '../../../models/category'
 import { styles } from './CategoriesScreen.styles'
 
 const CategoriesScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true)
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
 
   useEffect(() => {
     // eslint-disable-next-line
