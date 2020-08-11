@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, AsyncStorage, FlatList, View } from 'react-native'
 import MealItem from '../../../components/MealItem'
-import CategoriesContext from '../../../context/CategoriesContext'
+import AppContext from '../../../context/AppContext'
 import Meal from '../../../models/meal'
 import { styles } from './FavoritesScreen.styles'
 
@@ -10,7 +10,7 @@ const FavoritesScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true)
   const [filteredMeals, setFilteredMeals] = useState()
 
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {

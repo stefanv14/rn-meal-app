@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types'
 import React, { useCallback, useContext, useEffect } from 'react'
 import { AsyncStorage, Image, ScrollView, Text, View } from 'react-native'
 import DefaultText from '../../../components/DefaultText'
-import CategoriesContext from '../../../context/CategoriesContext'
+import AppContext from '../../../context/AppContext'
 import { styles } from './MealDetailScreen.styles'
 
 const ListItem = ({ children }) => (
@@ -12,11 +12,19 @@ const ListItem = ({ children }) => (
 )
 
 const MealDetailScreen = ({ navigation, route }) => {
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
 
   const { mealId } = route.params
 
   const selectedMeal = value.meals.find((meal) => meal.id === mealId)
+
+  if (selectedMeal === undefined) {
+    return (
+      <View style={styles.noMealWrapper}>
+        <DefaultText>No meal go back</DefaultText>
+      </View>
+    )
+  }
 
   const isInStorage = (storage) => {
     const itemInStorage = JSON.parse(storage).find(
@@ -50,6 +58,7 @@ const MealDetailScreen = ({ navigation, route }) => {
         } else {
           AsyncStorage.setItem('isFav', JSON.stringify([selectedMeal]))
         }
+        navigation.goBack()
       } catch (error) {
         // Error saving data
       }

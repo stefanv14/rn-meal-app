@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 import DefaultText from '../../../components/DefaultText'
 import MealsList from '../../../components/MealsList'
-import CategoriesContext from '../../../context/CategoriesContext'
+import AppContext from '../../../context/AppContext'
 import Meal from '../../../models/meal'
 import { styles } from './CategoryMealsScreen.styles'
 
 const CategoryMealScreen = ({ navigation, route }) => {
   const [isLoading, setLoading] = useState(false)
 
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
   const catId = route.params.categoryId
 
   useEffect(() => {
