@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useReducer } from 'react'
 import { ActivityIndicator, Switch, Text, View } from 'react-native'
 import DefaultText from '../../../components/DefaultText'
 import Colors from '../../../constants/Colors'
-import CategoriesContext from '../../../context/CategoriesContext'
+import AppContext from '../../../context/AppContext'
 import Meal from '../../../models/meal'
 import { styles } from './FilterScreen.styles'
 
@@ -66,7 +66,7 @@ const FilterSwitch = ({ label, state, onChange }) => (
 )
 
 const FilterScreen = () => {
-  const value = useContext(CategoriesContext)
+  const value = useContext(AppContext)
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -119,7 +119,17 @@ const FilterScreen = () => {
       }
       return false
     })
+
     value.setMeals(valueFilt)
+
+    if (
+      state.glutenFree === false && //eslint-disable-line
+      state.lactoseFree === false && //eslint-disable-line
+      state.vegan === false && //eslint-disable-line
+      state.isVegetarian === false
+    ) {
+      value.setMeals(state.meals)
+    }
 
     return () => {
       // cleanup

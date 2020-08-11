@@ -27,4 +27,9 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  noMealWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 })
